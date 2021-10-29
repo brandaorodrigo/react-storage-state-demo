@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { ConfigProvider } from 'antd';
 import ptBR from 'antd/lib/locale/pt_BR';
 import 'antd/dist/antd.css';
@@ -21,12 +20,7 @@ export default function App() {
 
 function Router() {
     const { useStorage } = useContextStorage();
-    const [token, setToken] = useStorage('token');
-
-    useEffect(() => {
-        console.log(token);
-    }, [token]);
-
+    const [token] = useStorage('token');
     return (
         <BrowserRouter>
             {token ? <LoggedRouter /> : <PublicRouter />}

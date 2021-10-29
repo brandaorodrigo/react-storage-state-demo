@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { NavLink, useHistory, useLocation, useParams } from 'react-router-dom';
 
-import { StorageProvider, useContextStorage } from './react-storage-state';
+import { useContextStorage } from './react-storage-state';
 
 /* ========================================================================== */
 /* ========================================================================== */
@@ -40,19 +40,15 @@ export const PublicTemplate: React.FC = ({ children }) => {
 /* ========================================================================== */
 
 export function Login() {
-    //localStorage.clear();
-    //sessionStorage.clear();
+    const { useStorage } = useContextStorage();
+    const [, setToken] = useStorage('token');
+    const [, setMall] = useStorage('mall');
+
     const history = useHistory();
 
-    const { useStorage } = useContextStorage();
-
-    const [token, setToken] = useStorage('token');
-    const [mall, setMall] = useStorage('mall');
-
     const onFinish = () => {
-        setToken('zzzzzzzzzz');
-        setMall('5');
-        //setStoreId('10');
+        setToken('tokenValue');
+        setMall('mallValue');
         history.push('/');
         //window.location.href = '/';
     };
@@ -74,21 +70,18 @@ export function Login() {
 
 export function Logout() {
     const { useStorage } = useContextStorage();
-    const [token, setToken] = useStorage('token');
-    const [mall, setMall] = useStorage('mall');
-    //const { setStorage } = useStorage();
+    const [, setToken] = useStorage('token');
+    const [, setMall] = useStorage('mall');
+
     const history = useHistory();
+
     setTimeout(() => {
         setToken();
         setMall();
-        //setStorage();
-        //setMallId(false);
-        //setStoreId(false);
-        localStorage.clear();
-        sessionStorage.clear();
         history.push('/');
         //window.location.href = '/';
-    }, 1000);
+    }, 500);
+
     return <></>;
 }
 
@@ -99,9 +92,9 @@ export function Home() {
 
     const { search, hash } = useLocation();
 
-    const query = new URLSearchParams(search);
-
     const history = useHistory();
+
+    const query = new URLSearchParams(search);
 
     const { pathname } = useLocation();
 
@@ -125,25 +118,15 @@ export function Home() {
             <br />
             localStorage: {localStorage.getItem('token')}
             <br />
+            <div onClick={() => setToken('newTokenValue')}>SET NEW TOKEN</div>
+            <div onClick={() => setMall('newMallValue')}>SET NEW MALL</div>
             <div
                 onClick={() => {
-                    //localStorage.setItem('token', 'ALTERADO PELA HOME');
-                    setToken('AAAAA');
-                    //history.push('/reload');
-                    //history.replace(pathname);
+                    history.push('/reload');
+                    history.replace(pathname);
                 }}
             >
-                RELOAD
-            </div>
-            <div
-                onClick={() => {
-                    //localStorage.setItem('token', 'ALTERADO PELA HOME');
-                    setMall('x');
-                    //history.push('/reload');
-                    //history.replace(pathname);
-                }}
-            >
-                MALL
+                RELOAD PAGE
             </div>
             <br />
             <NavLink to="/about/dsdsd?teste=444">TESTE SEARCH</NavLink>
