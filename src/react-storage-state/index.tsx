@@ -49,7 +49,7 @@ const StorageProvider: React.FC<StorageProviderProps> = ({ children }) => {
     );
 };
 
-const useContextStorage = (): StorageContextProps => {
+const useStorageContext = (): StorageContextProps => {
     const context = useContext(StorageContext);
     if (!context) {
         throw new Error('StorageContext must be use with StorageProvider');
@@ -80,7 +80,7 @@ const useStorage = (
     return [value, setStorage];
 };
 
-export { StorageProvider, useContextStorage, useStorage };
+export { StorageProvider, useStorageContext, useStorage };
 
 /*
 const StorageProvider: React.FC<StorageProviderProps> = ({

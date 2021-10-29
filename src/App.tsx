@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import {
     StorageProvider,
-    useContextStorage,
+    useStorageContext,
     useStorage,
 } from './react-storage-state';
 
@@ -25,7 +25,7 @@ export default function App() {
 
 function Router() {
     // MODELO 3 = MODELO 2 + CONTEXT
-    const { useStorage } = useContextStorage();
+    const { useStorage } = useStorageContext();
 
     // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
     const [token, setToken] = useStorage('token');

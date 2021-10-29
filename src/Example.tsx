@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import { NavLink, useHistory, useLocation, useParams } from 'react-router-dom';
 
-import { useContextStorage, useStorage } from './react-storage-state';
+import { useStorageContext, useStorage } from './react-storage-state';
 
 /* ========================================================================== */
 /* ========================================================================== */
@@ -41,7 +41,7 @@ export const PublicTemplate: React.FC = ({ children }) => {
 
 export function Login() {
     // MODELO 3 = MODELO 2 + CONTEXT
-    const { useStorage } = useContextStorage();
+    const { useStorage } = useStorageContext();
 
     // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
     const [, setToken] = useStorage('token');
@@ -88,7 +88,7 @@ export function Login() {
 
 export function Logout() {
     // MODELO 3 = MODELO 2 + CONTEXT
-    const { useStorage } = useContextStorage();
+    const { useStorage } = useStorageContext();
 
     // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
     const [, setToken] = useStorage('token');
@@ -133,7 +133,7 @@ export function Logout() {
 
 export function Home() {
     // MODELO 3 = MODELO 2 + CONTEXT
-    const { useStorage } = useContextStorage();
+    const { useStorage } = useStorageContext();
 
     // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
     const [token, setToken] = useStorage('token');
