@@ -1,9 +1,7 @@
 import React, { createContext, useState, useContext } from 'react';
 
 interface StorageContextProps {
-    useStorage(
-        key: string
-    ): [string | undefined, (value?: string | undefined) => void];
+    (key: string): [string | undefined, (value?: string | undefined) => void];
 }
 
 interface StorageProviderProps {
@@ -43,7 +41,7 @@ const StorageProvider: React.FC<StorageProviderProps> = ({ children }) => {
     };
 
     return (
-        <StorageContext.Provider value={{ useStorage }}>
+        <StorageContext.Provider value={useStorage}>
             {children}
         </StorageContext.Provider>
     );
@@ -57,7 +55,6 @@ const useStorageContext = (): StorageContextProps => {
     return context;
 };
 
-// MODELO 2
 const useStorage = (
     key: string,
     storage?: Storage

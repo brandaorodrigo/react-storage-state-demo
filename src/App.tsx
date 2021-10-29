@@ -25,7 +25,7 @@ export default function App() {
 
 function Router() {
     // MODELO 3 = MODELO 2 + CONTEXT
-    const { useStorage } = useStorageContext();
+    const useStorage = useStorageContext();
 
     // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
     const [token, setToken] = useStorage('token');

@@ -41,7 +41,7 @@ export const PublicTemplate: React.FC = ({ children }) => {
 
 export function Login() {
     // MODELO 3 = MODELO 2 + CONTEXT
-    const { useStorage } = useStorageContext();
+    const useStorage = useStorageContext();
 
     // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
     const [, setToken] = useStorage('token');
@@ -88,7 +88,7 @@ export function Login() {
 
 export function Logout() {
     // MODELO 3 = MODELO 2 + CONTEXT
-    const { useStorage } = useStorageContext();
+    const useStorage = useStorageContext();
 
     // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
     const [, setToken] = useStorage('token');
@@ -133,7 +133,7 @@ export function Logout() {
 
 export function Home() {
     // MODELO 3 = MODELO 2 + CONTEXT
-    const { useStorage } = useStorageContext();
+    const useStorage = useStorageContext();
 
     // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
     const [token, setToken] = useStorage('token');
