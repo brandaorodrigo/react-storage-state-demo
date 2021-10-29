@@ -1,8 +1,13 @@
+import { useState } from 'react';
 import { ConfigProvider } from 'antd';
 import ptBR from 'antd/lib/locale/pt_BR';
 import 'antd/dist/antd.css';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import { StorageProvider, useContextStorage } from './react-storage-state';
+import {
+    StorageProvider,
+    useContextStorage,
+    useStorage,
+} from './react-storage-state';
 
 import { LoggedTemplate, PublicTemplate, Logout, Home, Login } from './Example';
 
@@ -19,8 +24,19 @@ export default function App() {
 }
 
 function Router() {
+    // MODELO 3 = MODELO 2 + CONTEXT
     const { useStorage } = useContextStorage();
-    const [token] = useStorage('token');
+
+    // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
+    const [token, setToken] = useStorage('token');
+
+    // MODELO 1 = LOCALSTORAGE MANUALMENTE
+    /*
+    const [token] = useState<string | undefined>(
+        localStorage.getItem('token') ?? undefined
+    );
+    */
+
     return (
         <BrowserRouter>
             {token ? <LoggedRouter /> : <PublicRouter />}
