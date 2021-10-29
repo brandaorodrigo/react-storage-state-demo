@@ -1,12 +1,11 @@
+import { useEffect } from 'react';
 import { ConfigProvider } from 'antd';
 import ptBR from 'antd/lib/locale/pt_BR';
 import 'antd/dist/antd.css';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-
-import { StorageProvider, useStorageContext } from './react-storage-state';
+import { StorageProvider, useContextStorage } from './react-storage-state';
 
 import { LoggedTemplate, PublicTemplate, Logout, Home, Login } from './Example';
-import { useEffect } from 'react';
 
 export const VERSION = '21.11';
 
@@ -21,7 +20,7 @@ export default function App() {
 }
 
 function Router() {
-    const { useStorage } = useStorageContext();
+    const { useStorage } = useContextStorage();
     const [token, setToken] = useStorage('token');
 
     useEffect(() => {

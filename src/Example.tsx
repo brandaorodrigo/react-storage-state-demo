@@ -2,8 +2,7 @@ import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { NavLink, useHistory, useLocation, useParams } from 'react-router-dom';
 
-import { StorageProvider, useStorageContext } from './react-storage-state';
-import { useStorageListener } from 'react-storage-hooks/dist/common';
+import { StorageProvider, useContextStorage } from './react-storage-state';
 
 /* ========================================================================== */
 /* ========================================================================== */
@@ -45,7 +44,7 @@ export function Login() {
     //sessionStorage.clear();
     const history = useHistory();
 
-    const { useStorage } = useStorageContext();
+    const { useStorage } = useContextStorage();
 
     const [token, setToken] = useStorage('token');
     const [mall, setMall] = useStorage('mall');
@@ -74,7 +73,7 @@ export function Login() {
 }
 
 export function Logout() {
-    const { useStorage } = useStorageContext();
+    const { useStorage } = useContextStorage();
     const [token, setToken] = useStorage('token');
     const [mall, setMall] = useStorage('mall');
     //const { setStorage } = useStorage();
@@ -94,7 +93,7 @@ export function Logout() {
 }
 
 export function Home() {
-    const { useStorage } = useStorageContext();
+    const { useStorage } = useContextStorage();
     const [token, setToken] = useStorage('token');
     const [mall, setMall] = useStorage('mall');
 
