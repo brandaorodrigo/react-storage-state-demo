@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { NavLink, useHistory, useLocation, useParams } from 'react-router-dom';
 
-import { StorageProvider, useStorageState } from './react-storage-state';
+import { StorageProvider, useStorageContext } from './react-storage-state';
 import { useStorageListener } from 'react-storage-hooks/dist/common';
 
 /* ========================================================================== */
@@ -44,12 +44,15 @@ export function Login() {
     //localStorage.clear();
     //sessionStorage.clear();
     const history = useHistory();
-    const { useStorage } = useStorageState();
+
+    const { useStorage } = useStorageContext();
+
     const [token, setToken] = useStorage('token');
+    const [mall, setMall] = useStorage('mall');
 
     const onFinish = () => {
         setToken('zzzzzzzzzz');
-        //setMallId('5');
+        setMall('5');
         //setStoreId('10');
         history.push('/');
         //window.location.href = '/';
@@ -71,12 +74,14 @@ export function Login() {
 }
 
 export function Logout() {
-    const { useStorage } = useStorageState();
+    const { useStorage } = useStorageContext();
     const [token, setToken] = useStorage('token');
+    const [mall, setMall] = useStorage('mall');
     //const { setStorage } = useStorage();
     const history = useHistory();
     setTimeout(() => {
-        setToken(undefined);
+        setToken();
+        setMall();
         //setStorage();
         //setMallId(false);
         //setStoreId(false);
@@ -89,9 +94,9 @@ export function Logout() {
 }
 
 export function Home() {
-    const { useStorage } = useStorageState();
-
+    const { useStorage } = useStorageContext();
     const [token, setToken] = useStorage('token');
+    const [mall, setMall] = useStorage('mall');
 
     const { search, hash } = useLocation();
 
@@ -116,16 +121,30 @@ export function Home() {
             <br />
             STATE-TOKEN: {token}
             <br />
+            <br />
+            MALL: {mall}
+            <br />
             localStorage: {localStorage.getItem('token')}
             <br />
             <div
                 onClick={() => {
-                    setToken('ALTERADO PELA HOME');
-                    history.push('/reload');
-                    history.replace(pathname);
+                    //localStorage.setItem('token', 'ALTERADO PELA HOME');
+                    setToken('AAAAA');
+                    //history.push('/reload');
+                    //history.replace(pathname);
                 }}
             >
                 RELOAD
+            </div>
+            <div
+                onClick={() => {
+                    //localStorage.setItem('token', 'ALTERADO PELA HOME');
+                    setMall('x');
+                    //history.push('/reload');
+                    //history.replace(pathname);
+                }}
+            >
+                MALL
             </div>
             <br />
             <NavLink to="/about/dsdsd?teste=444">TESTE SEARCH</NavLink>

@@ -3,9 +3,10 @@ import ptBR from 'antd/lib/locale/pt_BR';
 import 'antd/dist/antd.css';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-import { StorageProvider, useStorageState } from './react-storage-state';
+import { StorageProvider, useStorageContext } from './react-storage-state';
 
 import { LoggedTemplate, PublicTemplate, Logout, Home, Login } from './Example';
+import { useEffect } from 'react';
 
 export const VERSION = '21.11';
 
@@ -20,8 +21,13 @@ export default function App() {
 }
 
 function Router() {
-    const { useStorage } = useStorageState();
-    const [token] = useStorage('token');
+    const { useStorage } = useStorageContext();
+    const [token, setToken] = useStorage('token');
+
+    useEffect(() => {
+        console.log(token);
+    }, [token]);
+
     return (
         <BrowserRouter>
             {token ? <LoggedRouter /> : <PublicRouter />}
