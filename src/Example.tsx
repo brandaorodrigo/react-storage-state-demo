@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
 import { NavLink, useHistory, useLocation, useParams } from 'react-router-dom';
 
-import { useStorageContext, useStorage } from './react-storage-state';
+import { useStorageContext } from './react-storage-state';
 
 /* ========================================================================== */
 /* ========================================================================== */
@@ -40,35 +40,16 @@ export const PublicTemplate: React.FC = ({ children }) => {
 /* ========================================================================== */
 
 export function Login() {
-    // MODELO 3 = MODELO 2 + CONTEXT
     const useStorage = useStorageContext();
-
-    // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
     const [, setToken] = useStorage('token');
     const [, setMall] = useStorage('mall');
-
-    // MODELO 1 = LOCALSTORAGE MANUALMENTE
-    /*
-    const [, setToken] = useState<string>();
-    const [, setMall] = useState<string>();
-    */
 
     const history = useHistory();
 
     const onFinish = () => {
-        // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
         setToken('tokenValue');
         setMall('mallValue');
         history.push('/');
-
-        // MODELO 1 = LOCALSTORAGE MANUALMENTE
-        /*
-        setToken('tokenValue');
-        localStorage.setItem('token', 'zzzzz');
-        setMall('mallValue');
-        localStorage.setItem('mall', 'yyyyyy');
-        window.location.href = '/';
-        */
     };
 
     return (
@@ -87,39 +68,16 @@ export function Login() {
 }
 
 export function Logout() {
-    // MODELO 3 = MODELO 2 + CONTEXT
     const useStorage = useStorageContext();
-
-    // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
     const [, setToken] = useStorage('token');
     const [, setMall] = useStorage('mall');
-
-    // MODELO 1 = LOCALSTORAGE MANUALMENTE
-    /*
-    const [, setToken] = useState<string | undefined>(
-        localStorage.getItem('token') ?? undefined
-    );
-    const [, setMall] = useState<string | undefined>(
-        localStorage.getItem('mall') ?? undefined
-    );
-    */
 
     const history = useHistory();
 
     const handleLogout = useCallback(() => {
-        // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
         setToken(undefined);
         setMall(undefined);
         history.push('/');
-
-        // MODELO 1 = LOCALSTORAGE MANUALMENTE
-        /*
-        setToken(undefined);
-        localStorage.removeItem('token');
-        setMall(undefined);
-        localStorage.removeItem('mall');
-        window.location.href = '/';
-        */
     }, [history, setToken, setMall]);
 
     useEffect(() => {
@@ -132,22 +90,9 @@ export function Logout() {
 }
 
 export function Home() {
-    // MODELO 3 = MODELO 2 + CONTEXT
     const useStorage = useStorageContext();
-
-    // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
     const [token, setToken] = useStorage('token');
     const [mall, setMall] = useStorage('mall');
-
-    // MODELO 1 = LOCALSTORAGE MANUALMENTE
-    /*
-    const [token, setToken] = useState<string | undefined>(
-        localStorage.getItem('token') ?? undefined
-    );
-    const [mall, setMall] = useState<string | undefined>(
-        localStorage.getItem('mall') ?? undefined
-    );
-    */
 
     const { search, hash } = useLocation();
 
@@ -177,34 +122,8 @@ export function Home() {
             <br />
             localStorage: {localStorage.getItem('token')}
             <br />
-            <div
-                onClick={() => {
-                    // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
-                    setToken('newTokenValue');
-
-                    // MODELO 1 = LOCALSTORAGE MANUALMENTE
-                    /*
-                    setToken('newTokenValue');
-                    localStorage.setItem('token', 'newTokenValue');
-                    */
-                }}
-            >
-                SET NEW TOKEN
-            </div>
-            <div
-                onClick={() => {
-                    // MODELO 2 = LOCALSTORAGE/STATE ATRELADO DENTRO DE CADA COMPONENTE
-                    setMall('newMallValue');
-
-                    // MODELO 1 = LOCALSTORAGE MANUALMENTE
-                    /*
-                    setMall('newMallValue');
-                    localStorage.setItem('mall', 'newMallValue');
-                    */
-                }}
-            >
-                SET NEW MALL
-            </div>
+            <div onClick={() => setToken('newTokenValue')}>SET NEW TOKEN</div>
+            <div onClick={() => setMall('newMallValue')}>SET NEW MALL</div>
             <div
                 onClick={() => {
                     history.push('/reload');

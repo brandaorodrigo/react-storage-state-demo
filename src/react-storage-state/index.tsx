@@ -55,26 +55,4 @@ const useStorageContext = (): StorageContextProps => {
     return context;
 };
 
-const useStorage = (
-    key: string,
-    storage?: Storage
-): [string | undefined, (value?: string | undefined) => void] => {
-    const webStorage = storage ?? window.localStorage;
-
-    const [value, setValue] = useState<string | undefined>(
-        webStorage.getItem(key) ?? undefined
-    );
-
-    const setStorage = (value?: string | undefined): void => {
-        setValue(value);
-        if (value) {
-            webStorage.setItem(key, value);
-        } else {
-            webStorage.removeItem(key);
-        }
-    };
-
-    return [value, setStorage];
-};
-
-export { StorageProvider, useStorageContext, useStorage };
+export { StorageProvider, useStorageContext };
